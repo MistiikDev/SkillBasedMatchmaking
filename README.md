@@ -5,6 +5,16 @@ A module that implements a way to teleport players to parties depending on their
 Skill-Based Matchmaking is used on mostly on Competitive oriented FPS games where fighting against players with same level is privileged. 
 It avoid players getting in matches with a too big level gap.
 
+## How does it works ?
+Module simply uses the new MemoryService introduced by Roblox as a RAM-like system. Allowing communiation cross-server. 
+For the ranking, the module (for now) isnt using math modules or doing advanced math operations (planning on adding Glicko-2) 
+It simply infinitely loops (starts whne user invokes method and stops when server stops), get running servers and player on queue. 
+If there are none running servers after n iterations unique on each players, server will create a new server to teleport players in.
+If there are running servers, but skill gap is too much high for p player, then level gap for this specific player will be increased by a.
+As long as a isnt superior as a certain number, player will still loop searching for possible servers. if after all this it doesnt finds anything it will create a new
+server to teleport him into.
+If players with same level find a server with a reasonable level gap, they will get telepored into it as long as the length of players  to teleport doesnt exceed the max number of players, in that case tho, only players with the level that is the most closr to the mean will get teleported
+
 ## Prerequistes
 The repo consists of only a ModuleScript. You will need a total of 3 scripts
  - The module
