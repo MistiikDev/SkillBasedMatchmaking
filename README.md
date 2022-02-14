@@ -45,7 +45,29 @@ MatchmakingModule:FindMatches()
 ```
 Then with the server script located in the figth place: 
 ```lua
+local id = game.PrivateServerId
+local MatchmakingModule = require(8824325549)
 
+MatchmakingModule.serverInit()
+
+MatchmakingModule:setMaxPlayers(10)
+
+MatchmakingModule:setDebugMode(false)
+
+-- removes server to queue if too much players and updates server level mean.
+game.Players.PlayerAdded:Connect(function(player)
+	MatchmakingModule:AddPlayerServerToQueue(player, id)
+end)
+
+-- adds server to queue if not enough players and updates server level mean.
+game.Players.PlayerRemoving:Connect(function(player)
+	MatchmakingModule:AddPlayerServerToQueue(player, id)
+end)
+
+-- removes server from queue 
+game:BindToClose(function()
+	MatchmakingModule:ClearServer(id)
+end)
 ```
 
 ## API 
@@ -76,9 +98,6 @@ QueueHandler:ClearAllQueues()
 QueueHandler:FindMatches()
 ```
 ### Party Server Functions :
-```lua
-QueueHandler:setMinPlayers(n)
-```
 ```lua
 QueueHandler:setMaxPlayers(n)
 ```
