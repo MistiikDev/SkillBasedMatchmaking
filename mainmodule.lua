@@ -265,7 +265,7 @@ function QueueHandler:FindMatches()
 		if (#PlayersOnQueue >= 1) then
 			
 			if (self.debugMode) then 
-				print('More than 0 player on queue')
+				print('At least 1 player on queue')
 			end 
 
 			if (#RunningServers > 0) then
